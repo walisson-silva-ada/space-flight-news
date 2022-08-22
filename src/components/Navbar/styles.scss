@@ -1,0 +1,45 @@
+.header {
+  width: 100vw;
+  background-color: #333333;
+  padding: 0 2rem;
+}
+
+.navbar {
+  max-width: 1200px;
+  padding: 1rem 0;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+
+  a {
+    color: white;
+    margin-left: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+
+    transition: color 0.3s;
+
+    &:hover {
+      color: #b18285;
+      transition: color 0.3s;
+    }
+  }
+}
+
+.navBrand {
+  display: flex;
+  align-items: center;
+  color: white;
+
+  span {
+    font-size: 1.8rem;
+    margin-left: 1rem;
+  }
+}
