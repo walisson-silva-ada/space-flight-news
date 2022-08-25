@@ -1,0 +1,24 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem auto;
+
+  span {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    border: none;
+    padding: 0.4rem 0;
+    width: 120px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    & + button {
+      margin-left: 1rem;
+    }
+  }
+}

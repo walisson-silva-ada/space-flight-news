@@ -1,0 +1,57 @@
+// CSS MODULES
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.thumbnail {
+  img {
+    width: auto;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100%;
+
+    img {
+      flex: 1;
+    }
+  }
+}
+
+.articleInfoContainer {
+  margin-left: 2rem;
+  margin-top: 0;
+
+  h2 {
+    // 1rem => 16px
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    color: #8695a4;
+    font-weight: 400;
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}

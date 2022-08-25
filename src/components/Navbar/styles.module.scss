@@ -2,6 +2,7 @@
   width: 100vw;
   background-color: #333333;
   padding: 0 2rem;
+  box-shadow: 0 2px 7px rgba($color: #000000, $alpha: 0.25);
 }
 
 .navbar {
@@ -21,7 +22,7 @@
   a {
     color: white;
     margin-left: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.1rem;
 
     transition: color 0.3s;
@@ -39,7 +40,9 @@
   color: white;
 
   span {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-left: 1rem;
+    font-family: "Grenze", serif;
+    font-weight: 500;
   }
 }
