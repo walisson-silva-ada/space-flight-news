@@ -1,44 +1,79 @@
+import { useEffect, useState } from "react";
 import "./App.scss";
 import { Article } from "./components/Article";
 import Navbar from "./components/Navbar";
 
-import thumb1 from "./assets/articleThumb1.png";
-import thumb2 from "./assets/articleThumb2.png";
-import thumb3 from "./assets/articleThumb3.png";
-import { Counter } from "./components/Counter";
+import ContentLoader, { Facebook } from "react-content-loader";
+
+interface INews {
+  id: number;
+  title: string;
+  summary: string;
+  imageUrl: string;
+  url: string;
+  newsSite: string;
+}
 
 // Componente funcional: É uma função que retorna HTML
-
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [news, setNews] = useState([] as INews[]);
+
+  async function loadNewsFromAPI() {
+    setIsLoading(true);
+    // const response = await fetch("./articles.json");
+    try {
+      const response = await fetch(
+        "https://api.spaceflightnewsapi.net/v3/articles "
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+      setNews(data);
+    } catch (err) {
+      console.log("Erro:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadNewsFromAPI();
+  }, []);
+
   return (
     <>
       <Navbar />
 
-      <Counter />
+      <button onClick={loadNewsFromAPI}>Refresh</button>
 
       <section style={{ maxWidth: "1120px", margin: "4rem auto" }}>
-        <Article
-          title="Notícia 1"
-          provider="NASA"
-          description="Descrição 1"
-          thumbnail={thumb1}
-        />
-
-        <Article
-          title="Notícia 2"
-          provider="NASA"
-          description="Descrição 2"
-          thumbnail={thumb2}
-        />
-
-        <Article
-          title="Notícia 3"
-          provider="NASA"
-          description="Descrição 3"
-          thumbnail={thumb3}
-        />
-
-        <Article title="Notícia 4" provider="NASA" />
+        {isLoading
+          ? Array.from({ length: 4 }).map(() => (
+              <ContentLoader
+                viewBox="0 0 380 70"
+                backgroundColor="#333"
+                style={{ padding: "0 2rem 2rem" }}
+              >
+                <rect x="0" y="0" rx="5" ry="5" width="120" height="70" />
+                <rect x="130" y="5" rx="3" ry="4" width="300" height="15" />
+                <rect x="130" y="28" rx="3" ry="3" width="250" height="10" />
+                <rect x="130" y="45" rx="3" ry="3" width="250" height="20" />
+              </ContentLoader>
+            ))
+          : news.map((article) => {
+              return (
+                <Article
+                  key={article.id}
+                  title={article.title}
+                  provider={article.newsSite}
+                  description={article.summary}
+                  thumbnail={article.imageUrl}
+                  url={article.url}
+                />
+              );
+            })}
       </section>
     </>
   );

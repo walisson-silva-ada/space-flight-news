@@ -6,6 +6,7 @@ interface ArticleProps {
   description?: string;
   provider: string;
   thumbnail?: string;
+  url: string;
 }
 
 export function Article({
@@ -13,10 +14,11 @@ export function Article({
   provider,
   description,
   thumbnail,
+  url,
 }: ArticleProps) {
   return (
     <article className={styles.container}>
-      <a href="/" className={styles.thumbnail}>
+      <a href={url} target="_blank" className={styles.thumbnail}>
         <img src={thumbnail ?? postThumb} alt={title} />
       </a>
 

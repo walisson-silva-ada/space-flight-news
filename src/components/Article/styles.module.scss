@@ -14,8 +14,11 @@
 }
 
 .thumbnail {
+  flex: 1 0 350px;
+
   img {
-    width: auto;
+    width: 100%;
+    border-radius: 5px;
   }
 
   @media (max-width: 768px) {
