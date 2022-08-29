@@ -1,80 +1,24 @@
-import { useEffect, useState } from "react";
 import "./App.scss";
-import { Article } from "./components/Article";
 import Navbar from "./components/Navbar";
 
-import ContentLoader, { Facebook } from "react-content-loader";
-
-interface INews {
-  id: number;
-  title: string;
-  summary: string;
-  imageUrl: string;
-  url: string;
-  newsSite: string;
-}
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/Home";
+import { AboutPage } from "./pages/About";
+import { ArticlePage } from "./pages/ArticlePage";
 
 // Componente funcional: É uma função que retorna HTML
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [news, setNews] = useState([] as INews[]);
-
-  async function loadNewsFromAPI() {
-    setIsLoading(true);
-    // const response = await fetch("./articles.json");
-    try {
-      const response = await fetch(
-        "https://api.spaceflightnewsapi.net/v3/articles "
-      );
-
-      const data = await response.json();
-
-      console.log(data);
-      setNews(data);
-    } catch (err) {
-      console.log("Erro:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    loadNewsFromAPI();
-  }, []);
-
   return (
     <>
       <Navbar />
 
-      <button onClick={loadNewsFromAPI}>Refresh</button>
-
-      <section style={{ maxWidth: "1120px", margin: "4rem auto" }}>
-        {isLoading
-          ? Array.from({ length: 4 }).map(() => (
-              <ContentLoader
-                viewBox="0 0 380 70"
-                backgroundColor="#333"
-                style={{ padding: "0 2rem 2rem" }}
-              >
-                <rect x="0" y="0" rx="5" ry="5" width="120" height="70" />
-                <rect x="130" y="5" rx="3" ry="4" width="300" height="15" />
-                <rect x="130" y="28" rx="3" ry="3" width="250" height="10" />
-                <rect x="130" y="45" rx="3" ry="3" width="250" height="20" />
-              </ContentLoader>
-            ))
-          : news.map((article) => {
-              return (
-                <Article
-                  key={article.id}
-                  title={article.title}
-                  provider={article.newsSite}
-                  description={article.summary}
-                  thumbnail={article.imageUrl}
-                  url={article.url}
-                />
-              );
-            })}
-      </section>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/trending" element={<h1>Trending</h1>} />
+        <Route path="/categories" element={<h1>Categories</h1>} />
+        <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/article/:title" element={<ArticlePage />} />
+      </Routes>
     </>
   );
 }

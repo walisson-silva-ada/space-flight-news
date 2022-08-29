@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss";
 import postThumb from "../../assets/articleThumb1.png";
+import { useNavigate } from "react-router-dom";
 
 interface ArticleProps {
   title: string;
@@ -16,14 +17,22 @@ export function Article({
   thumbnail,
   url,
 }: ArticleProps) {
+  const navigate = useNavigate();
+
+  function redirectToArticlePage() {
+    navigate(`/article/${title}`, {
+      state: JSON.stringify({ title, description, provider, thumbnail, url }),
+    });
+  }
+
   return (
     <article className={styles.container}>
-      <a href={url} target="_blank" className={styles.thumbnail}>
+      <a href={`/article/${title}`} className={styles.thumbnail}>
         <img src={thumbnail ?? postThumb} alt={title} />
       </a>
 
       <div className={styles.articleInfoContainer}>
-        <h2>{title}</h2>
+        <h2 onClick={redirectToArticlePage}>{title}</h2>
         <h3>{provider}</h3>
         <p>
           {description ??
