@@ -1,4 +1,5 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { ArticleProps } from "../../components/Article";
 import containerStyles from "../../styles/containers.module.scss";
 
 export function ArticlePage() {
@@ -7,14 +8,28 @@ export function ArticlePage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(params);
-  console.log(location);
+  const articleInfo = location.state;
+
+  if (!articleInfo) {
+    return <h1>Not found</h1>;
+  }
+
+  const { title, description, provider, url, thumbnail } =
+    articleInfo as ArticleProps;
 
   return (
     <main className={containerStyles.pageContainer}>
       <button onClick={() => navigate(-1)}>Voltar</button>
 
-      <h1>Article</h1>
+      <h1>{title}</h1>
+      <p>{description}</p>
+
+      <strong>{provider}</strong>
+      <img width="100%" src={thumbnail} alt={title} />
+
+      <a href={url} target="_blank">
+        View more
+      </a>
     </main>
   );
 }
